@@ -1,0 +1,4 @@
+{
+  "cmdctrl-g": "files:open",
+  "cmdcrtl-a": "files:attach"
+}

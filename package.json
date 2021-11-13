@@ -1,0 +1,26 @@
+{
+  "name": "scribeszone.staruml-files",
+  "title": "Files",
+  "description": "Referencing and opening files from StarUML. Proof of concept !",
+  "homepage": "https://github.com/ScribesZone/scribeszone.staruml-files",
+  "issues": "https://github.com/ScribesZone/scribeszone.staruml-files/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ScribesZone/scribeszone.staruml-files"
+  },
+  "version": "0.0.0",
+  "keywords": [
+    "UML",
+    "staruml",
+    "File system"
+  ],
+  "author": {
+    "name": "scribeszone"
+  },
+  "license": "GPL-3.0",
+  "engines": {
+    "staruml": ">=3.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

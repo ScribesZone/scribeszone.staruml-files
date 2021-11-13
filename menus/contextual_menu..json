@@ -1,0 +1,30 @@
+{
+  "context-menu": {
+    "#diagram-canvas": [
+      { "type": "separator" },
+      {
+        "label": "Attach file",
+        "id": "diagram.files.attach",
+        "command": "files:attach"
+      },
+      {
+        "label": "Open file",
+        "id": "diagram.files.open",
+        "command": "files:open"
+      }
+    ],
+    "#model-explorer-holder .treeview": [
+      { "type": "separator" },
+      {
+        "label": "Attach file",
+        "id": "model.files.attach",
+        "command": "files:attach"
+      },
+      {
+        "label": "Open file",
+        "id": "model.files.open",
+        "command": "files:open"
+      }
+    ]
+  }
+}
