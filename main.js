@@ -36,9 +36,6 @@ function readConfigurationFile() {
     }
 }
 
-/**
- *
- */
 function matchProcessorPattern(filename, pattern) {
     // deal with extension field
     const extension_json = pattern["extension"]
@@ -131,8 +128,14 @@ function getAbsoluteFileName(fileTag) {
     if (path.isAbsolute(filepath)) {
         return filepath
     } else {
-        const project_directory = path.dirname(app.project.filename)
-        return path.join(project_directory, filepath)
+        const project_filename = app.project.filename
+        if (project_filename) {
+            const project_directory = path.dirname(project_filename)
+            return path.join(project_directory, filepath)
+        } else {
+            app.toast.error('Project is not defined. Can not find directory', 60)
+            return undefined
+        }
     }
 }
 
@@ -156,7 +159,7 @@ function getFilenameFromSelection() {
     } else {
         error_msg = "Please selected one element."
     }
-    app.toast.error(error_msg, 20)
+    app.toast.error(error_msg, 60)
     log('filename: ')
     return null
 }
@@ -206,7 +209,7 @@ function createTag(element, name, value) {
 /*
 Ensure that there is a tag file under the element with value=filename.
 If the tag file already exist change the value.
-Otherwise create a brand new tag file.
+Otherwise, create a brand-new tag file.
 Select the element at the end. This is necessary since the tag creation
 could have changed the selection.
  */
@@ -240,7 +243,7 @@ function _handleAttach() {
 
 
 //------------------------------------------------------------------------
-// Initilisation
+// Initialization
 //------------------------------------------------------------------------
 
 function init() {
