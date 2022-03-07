@@ -36,6 +36,9 @@ function readConfigurationFile() {
     }
 }
 
+/**
+ *
+ */
 function matchProcessorPattern(filename, pattern) {
     // deal with extension field
     const extension_json = pattern["extension"]
@@ -59,6 +62,7 @@ function matchProcessorPattern(filename, pattern) {
     }
 }
 
+
 function getMatchingProcessorPattern(filename) {
     readConfigurationFile()
     for (const pattern of configuration["processors"]) {
@@ -66,7 +70,7 @@ function getMatchingProcessorPattern(filename) {
             return pattern
         }
     }
-    log('')
+    // log('')
     return undefined
 }
 
@@ -95,21 +99,59 @@ function execute(command) {
     });
 }
 
+function isFileTag(tag) {
+    return tag.name.match(/^file|.*\(file\)$/)
+}
+
+function fileTagsForElement(element) {
+    if (element instanceof type.Tag) {
+        // this is a tag, returns it if it is a tag file
+        if (isFileTag(element)) {
+            return [element]
+        } else {
+            return []
+        }
+    } else {
+        // return the "file" tag if any, otherwise return the first
+        // file tag
+        const file_tag = element.getTag('file')
+        if (file_tag) {
+            return [file_tag]
+        } else {
+            return (
+                element.tags.filter(
+                    tag => isFileTag(tag)))
+        }
+    }
+}
+
+function getAbsoluteFileName(fileTag) {
+    console.assert(isFileTag)
+    const filepath = fileTag.value
+    if (path.isAbsolute(filepath)) {
+        return filepath
+    } else {
+        const project_directory = path.dirname(app.project.filename)
+        return path.join(project_directory, filepath)
+    }
+}
 
 function getFilenameFromSelection() {
     let error_msg
     const selected_elements = app.selections.getSelectedModels()
     if (selected_elements.length === 1) {
-        if (selected_elements[0].getTag('file')) {
-            const filename = selected_elements[0].getTagValue('file')
+        const file_tags = fileTagsForElement(selected_elements[0])
+        if (file_tags.length >= 1) {
+            const first_file_tag = file_tags[0]
+            const filename = getAbsoluteFileName(first_file_tag)
             if (filename) {
-                log('filename: '+filename)
+                log(`filename: "${filename}"`)
                 return filename
             } else {
                 error_msg = "Tag file has no value. Should be a filename."
             }
         } else {
-            error_msg = "Tag 'file' not found in the selected element."
+            error_msg = "No file tag found in the selected element."
         }
     } else {
         error_msg = "Please selected one element."
@@ -128,7 +170,7 @@ function _handleOpen() {
         log('file = ' + filename)
         const command = getCommandLine(filename)
         if (command !== undefined) {
-            log( command)
+            log(command)
             app.toast.info("Opening " + command)
             execute(command)
             app.toast.info("Command executed")

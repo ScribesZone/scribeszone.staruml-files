@@ -7,10 +7,16 @@
     },
     {
       "extension": ".use",
-      "command": "/home/favreje/SOFTWARE/use-5.1.0/bin/use  {{filename}}"
+      "command": "use  {{filename}}"
     },
     {
-      "extension": [".java",".c"],
+      "extension": [
+        ".gls", ".cl1", ".ob1", ".sc1", ".pas", ".uss", ".pes",
+        ".tas", ".aus", ".res",
+
+        ".md", ".rst",
+
+        ".java",".c", ".h", ".js", ".ts", ".html", ".css"],
       "command": "code {{filename}}"
     },
     {
