@@ -4,7 +4,7 @@ staruml-files
 This extension allows to "attach" files to model element.
 The file can then be opened from StarUML.
 
-In practice the extension add two items in the contextual menu :
+In practice the extension add two items in the contextual menu:
 
 *   ```Attach file```. This allows to add a file to the selected element.
     A dialog is used to select an existing file.
