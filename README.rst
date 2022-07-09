@@ -1,7 +1,6 @@
 staruml-files
 =============
 
-
 This extension allows to "attach" files to model element.
 The file can then be opened from StarUML.
 
